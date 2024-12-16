@@ -1,0 +1,62 @@
+estoque = {}
+
+
+def titulo(msg):
+    print('-'*30)
+    print(msg.center(30))
+    print('-'*30)
+
+
+def cadastrar(nome, quantidade):
+    if nome in estoque:
+        print(f"O item '{nome}' já está cadastrado!")
+    else:
+        estoque[nome] = {'Quantidade': quantidade}
+        print(f'O item "{nome}" cadastrado com sucesso!')
+
+
+def atualizar(nome, quantidade):
+    if nome in estoque:
+        estoque[nome]['Quantidade'] += quantidade
+        print(f'Estoque de "{nome}" atualizado! Quantidade atual: {estoque[nome]['Quantidade']}')
+    else:
+        print(f'O item "{nome}" não está cadastrado no estoque')
+
+
+def mostrar():
+    print('\nEstoque atual:')
+    print(f'{"ID":<4}{"Item":<15}{"Quantidade":>10}')
+    print('-'*30)
+    if not estoque:
+        print('O estoque está vazio.')
+    else:
+        for idx, (nome, info) in enumerate(estoque.items(), start=1):
+            print(f'{idx:<4}{nome:<15}{info["Quantidade"]:>10}')
+    print()
+
+
+titulo('CONTROLE DE ESTOQUE')
+while True:
+    print('\nOpções:')
+    print('[ 1 ] CADASTRAR ITEM')
+    print('[ 2 ] ATUALIZAR ESTOQUE')
+    print('[ 3 ] MOSTRAR ESTOQUE')
+    print('[ 4 ] SAIR')
+    opção = input('Escolha uma opção: ')
+
+    if opção == '1':
+        nome = input('Digite o nome do item: ')
+        quant = int(input('Quantidade adicionada: '))
+        cadastrar(nome, quant)
+    elif opção == '2':
+        nome = input('Digite o nome do item: ')
+        quant = int(input('Digite a quantidade a ser adicionada/retirada: [Usar "-" para retirar] '))
+        atualizar(nome, quant)
+    elif opção == '3':
+        mostrar()
+    elif opção == '4':
+        print('Saindo do sistema. Até logo!')
+        break
+    else:
+        print('Opção inválida! Tente novamente.')
+
